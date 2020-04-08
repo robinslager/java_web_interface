@@ -1,54 +1,56 @@
 version: "3.2"
 services:
-#  server:
-#    build: './docker/webserver'
-#    volumes:
-#      - ./Webserver:/webserver
-#    working_dir: /webserver
-#    networks:
-#      main:
-#        aliases:
-#          - project.local
-#        ipv4_address: 172.16.0.42
-#    ports:
-#      - "80:80"
-#    links:
-#      - phpmyadmin
-#    stdin_open: true
-#    tty: true
-#  mysql:
-#    image: mysql:5.7
-#    networks:
-#      main:
-#    environment:
-#      MYSQL_DATABASE: symfony
-#      MYSQL_USER: symfony
-#      MYSQL_PASSWORD: symfony
-#      MYSQL_ROOT_PASSWORD: symfony
-#  phpmyadmin:
-#    image: phpmyadmin/phpmyadmin
-#    environment:
-#      PMA_HOST: mysql
-#      PMA_USER: symfony
-#      PMA_PASSWORD: symfony
-#    networks:
-#      main:
-#    restart: always
-#    ports:
-#      - 8080:80
-#    links:
-#      - mysql
+  server:
+    build: './docker/webserver'
+    volumes:
+      - ./Webserver:/webserver
+    working_dir: /webserver
+    networks:
+      server:
+        aliases:
+          - project.local
+        ipv4_address: 172.16.1.24
+
+    ports:
+      - "81:81"
+    links:
+      - phpmyadmin
+    stdin_open: true
+    tty: true
+  mysql:
+    image: mysql:5.7
+    networks:
+      server:
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+      MYSQL_ROOT_PASSWORD: symfony
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: symfony
+      PMA_PASSWORD: symfony
+    networks:
+      server:
+    restart: always
+    ports:
+      - 8180:80
+    links:
+      - mysql
   java:
     build:
       './docker/java'
     volumes:
       - ./Java_Application:/java
     working_dir: /java
-#networks:
-#  main:
-#    driver: bridge
-#    ipam:
-#      driver: default
-#      config:
-#        - subnet: 172.16.0.0/24
+networks:
+  server:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.1.0/24
+
 

@@ -1,0 +1,22 @@
+{"servers": [{
+  "server_name": "gitbot-dev",
+  "server_Settings": [
+	{
+	  "Setting": "Message_On_User_Join",
+	  "Value": "False"
+	},
+	{
+	  "Setting": "Separate_Issues_Channel",
+	  "Value": "False"
+	}
+  ],
+  "Settings_Info": {"channelID": "652460569680543765"},
+  "server_github": [{
+	"discord": "robin",
+	"authentication_key": "UNKOWN",
+	"repos": ["git-bot.js"],
+	"username": "robinslager"
+  }],
+  "server_pass": "",
+  "server_ID": "632269133949698056"
+}]}

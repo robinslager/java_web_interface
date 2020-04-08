@@ -19,7 +19,7 @@ public class bot extends ListenerAdapter {
     public static void main(String[] args) throws LoginException {
         EventWaiter waiter = new EventWaiter();
         builder = new JDABuilder(AccountType.BOT);
-        String Token = "INSERT-NEW-TOKEN";
+        String Token = "NjMyOTc3NzI0NTgzMTgyMzM2.Xo23MA.De4kKII_d4S1SZKl-2Fn1USvs6s";
         builder.setToken(Token);
         builder.addEventListeners(new bot());
         builder.addEventListeners(waiter);
