@@ -1,22 +1,24 @@
 version: "3.2"
 services:
   server:
-    build: './docker/webserver'
+    build: './docker/php'
     volumes:
-      - ./Webserver:/webserver
-    working_dir: /webserver
+      - ./:/project
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /project
     networks:
       server:
         aliases:
           - project.local
         ipv4_address: 172.16.1.24
-
     ports:
-      - "81:81"
+      - "81:80"
     links:
       - phpmyadmin
+      - java
     stdin_open: true
     tty: true
+    privileged: true
   mysql:
     image: mysql:5.7
     networks:
@@ -43,8 +45,14 @@ services:
     build:
       './docker/java'
     volumes:
-      - ./Java_Application:/java
+      - ./JavaApplication:/java
+      - ./Webserver/uploaded_Projects:/java/projects
+      - ./JavaApplication/Scripts:/java/Scripts
     working_dir: /java
+    ports:
+    - 8280:80
+    networks:
+      server:
 networks:
   server:
     driver: bridge
