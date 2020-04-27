@@ -1,0 +1,11 @@
+work dir java
+in java/scripts moeten scripts
+in java/workspace moet het project best kan je dit gaan toevoegen in een volume
+volume to workspace
+moet image java
+random port mag eerst static zijn
+
+daarna list containers get ID
+store id with user and image name in cluding all other neccery stuff
+
+

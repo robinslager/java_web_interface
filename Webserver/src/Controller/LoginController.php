@@ -26,7 +26,8 @@ class LoginController extends AbstractController
 	    } else {
 		    return $this->render('login/login.html.twig', [
 			    'error' => $error,
-			    'Lastusername' => $lastusername
+			    'Lastusername' => $lastusername,
+                'Request' => $request,
 		    ]);
 	    }
     }

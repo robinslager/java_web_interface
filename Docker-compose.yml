@@ -15,7 +15,6 @@ services:
       - "81:80"
     links:
       - phpmyadmin
-      - java
     stdin_open: true
     tty: true
     privileged: true
@@ -41,18 +40,6 @@ services:
       - 8180:80
     links:
       - mysql
-  java:
-    build:
-      './docker/java'
-    volumes:
-      - ./JavaApplication:/java
-      - ./Webserver/uploaded_Projects:/java/projects
-      - ./JavaApplication/Scripts:/java/Scripts
-    working_dir: /java
-    ports:
-    - 8280:80
-    networks:
-      server:
 networks:
   server:
     driver: bridge

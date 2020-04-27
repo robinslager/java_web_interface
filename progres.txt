@@ -5,3 +5,7 @@ curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/java_web_
 curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/081a40da708dbc5a68e3beb675330b7307a2f94937d3dad346252ece3149342c/pause
 todo check if java errors if the container dies
 curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/java_web_interface_java_1/exec -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/moveprojects.json
+
+
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/createcontainer.json
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/286015d38a2bdc8131090b4238d0de756549d4c10ca2beadb15105d92ec8ceea/start

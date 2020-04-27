@@ -1,0 +1,9 @@
+{
+  "Image": "gradlejavacontainer:1.0",
+  "Volumes": {
+    "JavaApplication/Scripts": {},
+    "java_web_interface_server/": {}
+  },
+  "WorkingDir": "/Java",
+  "Cmd": ["docker cp "]
+}
