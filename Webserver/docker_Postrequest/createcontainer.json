@@ -1,9 +1,20 @@
 {
-  "Image": "gradlejavacontainer:1.0",
+  "Image": "gradlejavacontainer:latest",
+  "labels":{
+    "com.docker.compose.service": "server"
+  },
   "Volumes": {
     "JavaApplication/Scripts": {},
     "java_web_interface_server/": {}
   },
   "WorkingDir": "/Java",
-  "Cmd": ["docker cp "]
+  "HostConfig": {
+  },
+  "NetworkingConfig": {
+    "EndpointsConfig": {
+      "java_web_interface_server": {
+      }
+    }
+  },
+  "Cmd": []
 }

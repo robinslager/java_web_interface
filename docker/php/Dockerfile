@@ -5,6 +5,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
      && docker-php-ext-install zip \
      && apt-get install -y wget \
      apt-utils \
+     iputils-ping \
      libmcrypt-dev \
      libcurl4-openssl-dev \
      libicu-dev \
@@ -20,6 +21,9 @@ RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
+RUN echo 'max_file_uploads = 1000' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
+RUN echo 'post_max_size = 500M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
+RUN echo 'upload_max_filesize = 500M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
 
 COPY project.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite

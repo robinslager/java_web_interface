@@ -1,9 +1,8 @@
 FROM gradle:4.3-jdk
 USER root
-ADD --chown=gradle . /Java/workspace
+ADD --chown=gradle . /Java
 SHELL ["/bin/bash", "-c"]
 RUN chmod a+rwX /Java
-RUN chmod a+rwX /java/*
 
 
 

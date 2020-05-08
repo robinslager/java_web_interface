@@ -52,6 +52,7 @@ abstract class AbstractController implements ServiceSubscriberInterface
         $previous = $this->container;
         $this->container = $container;
 
+
         return $previous;
     }
 

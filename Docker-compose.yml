@@ -10,7 +10,8 @@ services:
       server:
         aliases:
           - project.local
-        ipv4_address: 172.16.1.24
+        ipv4_address: 172.16.1.36
+      ext:
     ports:
       - "81:80"
     links:
@@ -41,6 +42,8 @@ services:
     links:
       - mysql
 networks:
+  ext:
+    external: true
   server:
     driver: bridge
     ipam:
