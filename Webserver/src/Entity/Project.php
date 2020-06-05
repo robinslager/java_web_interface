@@ -25,6 +25,11 @@ class Project
      * @ORM\Column(type="string", length=255)
      */
     private $ProjectName;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $DockerID;
+
 
     public function getId(): ?int
     {
@@ -58,6 +63,18 @@ class Project
     public function setProjectName(string $ProjectName): self
     {
         $this->ProjectName = $ProjectName;
+
+        return $this;
+    }
+
+    public function getDockerID(): ?string
+    {
+        return $this->DockerID;
+    }
+
+    public function setDockerID(?string $DockerID): self
+    {
+        $this->DockerID = $DockerID;
 
         return $this;
     }

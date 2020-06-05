@@ -41,28 +41,4 @@ class DockerdashboardController extends AbstractController
 		]);
 	}
 
-	/**
-	 * @Route("/docker/{action}/{container}", name="DockerActions")
-	 * @param $action
-	 * @param $containerimage
-	 * @return void
-	 */
-	public function dockeractions($action, $containerimage)
-	{
-		// get all containers
-		$command = exec("curl --unix-socket /var/run/docker.sock http:/v1.30/containers/json");
-		$docker = json_decode($command);
-
-		$baseCommand = "curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/";
-		if($action === "pause" || $action === "unpause" || $action === "stop" || $action === "start" || $action === "restart") {
-			$Command = $baseCommand + "/" + $container + "/" + $action;
-			$result = exec($command);
-			$container = null;
-			foreach ($docker as $dockercontainer) {
-				if ($dockercontainer->image === $containerimage) {
-					$container = $dockercontainer;
-				}
-			}
-		}
-	}
 }

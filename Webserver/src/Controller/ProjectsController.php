@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Service\DockerActions;
 use App\Service\ProjectUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,17 +50,15 @@ class ProjectsController extends AbstractController
     public function saveupload(EntityManagerInterface $em)
     {
         if(new ProjectUploader($_FILES)){
-            $project = new Project();
-            $project->setUserID($this->getUser()->getID());
-            $project->setProjectName($_POST['ProjectName']);
-            $em->persist($project);
-            $em->flush();
-
             // create tar file
             $pd = new \PharData('/project/Webserver/uploads/tar/' . $_POST['ProjectName'] . '.tar');
             $dir = realpath("/project/Webserver/uploads/raw/" . $_POST['ProjectName']);
             $pd->buildFromDirectory($dir);
             unset( $pd );
+
+            // create project and container
+            new DockerActions("new-project", $em ,$this->getUser() ,$_POST);
+
         }
     return $this->redirect('/projects');
     }

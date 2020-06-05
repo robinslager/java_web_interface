@@ -67,6 +67,7 @@ class ComposerStaticInitd86046b87f423097907a7e29060c64ae
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\ORM\\' => 13,
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Inflector\\' => 19,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
@@ -241,6 +242,10 @@ class ComposerStaticInitd86046b87f423097907a7e29060c64ae
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
         'Doctrine\\DBAL\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL',
@@ -286,16 +291,6 @@ class ComposerStaticInitd86046b87f423097907a7e29060c64ae
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'T' => 
-        array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
@@ -306,7 +301,6 @@ class ComposerStaticInitd86046b87f423097907a7e29060c64ae
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd86046b87f423097907a7e29060c64ae::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd86046b87f423097907a7e29060c64ae::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd86046b87f423097907a7e29060c64ae::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitd86046b87f423097907a7e29060c64ae::$classMap;
 
         }, null, ClassLoader::class);

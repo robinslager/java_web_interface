@@ -4,8 +4,11 @@ pauses/unpause the container
 curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/java_web_interface_phpmyadmin_1/pause /unpause
 curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/081a40da708dbc5a68e3beb675330b7307a2f94937d3dad346252ece3149342c/pause
 todo check if java errors if the container dies
-curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/java_web_interface_java_1/exec -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/moveprojects.json
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/1c14217b3e555b8fd16b87cc33c34eaa183fd272adbaafe0438452824962770e/exec -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/moveprojects.json
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/1eec015f54e3f7fab5d26ac64c2f2bca6b83730e6062431617877c10c2c35257/exec -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/download.json
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/1c14217b3e555b8fd16b87cc33c34eaa183fd272adbaafe0438452824962770e/exec -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/untar.json
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/exec/f0e4e0f038385992925a88b53ed5f798dd640b5f09513f331a6888d7f9032ae4/start -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/start.json
 
 
-curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" --data @Webserver/docker_Postrequest/createcontainer.json
-curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/08f8ff6872916ff8d533cde2751fd9ef370d284bd7613b311cbb5b270aa49256/start
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" --data @/www/project/Webserver/docker_Postrequest/createcontainer.json
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/f0e4e0f038385992925a88b53ed5f798dd640b5f09513f331a6888d7f9032ae4/start

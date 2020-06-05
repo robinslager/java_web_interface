@@ -1,0 +1,14 @@
+{
+  "AttachStdin": true,
+  "AttachStdout": true,
+  "AttachStderr": true,
+  "DetachKeys": "ctrl-p,ctrl-q",
+  "Tty": false,
+  "Privileged": true,
+  "Cmd": [
+    "gradle", "run"
+  ],
+  "Env": [
+  ],
+  "WorkingDir": "/Java"
+}

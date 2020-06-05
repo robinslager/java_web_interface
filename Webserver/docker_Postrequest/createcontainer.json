@@ -1,5 +1,5 @@
 {
-  "Image": "gradlejavacontainer:latest",
+  "Image": "gradlejavacontainer:1.1",
   "labels":{
     "com.docker.compose.service": "server"
   },

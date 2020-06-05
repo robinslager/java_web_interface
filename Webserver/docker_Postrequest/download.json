@@ -1,0 +1,14 @@
+{
+  "AttachStdin": true,
+  "AttachStdout": true,
+  "AttachStderr": true,
+  "DetachKeys": "ctrl-p,ctrl-q",
+  "Tty": false,
+  "Privileged": true,
+  "Cmd": [
+    "curl", "-o" , "project.tar", "192.168.166.193:81/download/git-bot-java"
+  ],
+  "Env": [
+  ],
+  "WorkingDir": "/Java"
+}

@@ -68,11 +68,10 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
      * Processes a value found in a definition tree.
      *
      * @param mixed $value
-     * @param bool  $isRoot
      *
      * @return mixed The processed value
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, bool $isRoot = false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
@@ -105,13 +104,11 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
     }
 
     /**
-     * @param bool $required
-     *
      * @return \ReflectionFunctionAbstract|null
      *
      * @throws RuntimeException
      */
-    protected function getConstructor(Definition $definition, $required)
+    protected function getConstructor(Definition $definition, bool $required)
     {
         if ($definition->isSynthetic()) {
             return null;
@@ -153,7 +150,7 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
                 throw new RuntimeException(sprintf('Invalid service "%s": class "%s" does not exist.', $this->currentId, $class));
             }
         } catch (\ReflectionException $e) {
-            throw new RuntimeException(sprintf('Invalid service "%s": %s.', $this->currentId, lcfirst(rtrim($e->getMessage(), '.'))));
+            throw new RuntimeException(sprintf('Invalid service "%s": '.lcfirst($e->getMessage()), $this->currentId));
         }
         if (!$r = $r->getConstructor()) {
             if ($required) {
@@ -167,13 +164,11 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
     }
 
     /**
-     * @param string $method
-     *
      * @throws RuntimeException
      *
      * @return \ReflectionFunctionAbstract
      */
-    protected function getReflectionMethod(Definition $definition, $method)
+    protected function getReflectionMethod(Definition $definition, string $method)
     {
         if ('__construct' === $method) {
             return $this->getConstructor($definition, true);

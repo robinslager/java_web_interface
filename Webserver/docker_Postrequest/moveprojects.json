@@ -6,9 +6,9 @@
   "Tty": false,
   "Privileged": true,
   "Cmd": [
-    "Scripts/Start.sh"
+    "touch", "project.tar"
   ],
   "Env": [
   ],
-  "WorkingDir": "/java"
+  "WorkingDir": "/Java"
 }

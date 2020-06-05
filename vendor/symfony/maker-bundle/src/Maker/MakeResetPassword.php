@@ -11,8 +11,10 @@
 
 namespace Symfony\Bundle\MakerBundle\Maker;
 
+use Doctrine\Common\Annotations\Annotation;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
+use Symfony\Bundle\MakerBundle\Doctrine\ORMDependencyBuilder;
 use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
 use Symfony\Bundle\MakerBundle\FileManager;
 use Symfony\Bundle\MakerBundle\Generator;
@@ -52,12 +54,17 @@ class MakeResetPassword extends AbstractMaker
     {
         $command
             ->setDescription('Create controller, entity, and repositories for use with symfonycasts/reset-password-bundle.')
+            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeResetPassword.txt'))
         ;
     }
 
     public function configureDependencies(DependencyBuilder $dependencies)
     {
         $dependencies->addClassDependency(SymfonyCastsResetPasswordBundle::class, 'symfonycasts/reset-password-bundle');
+
+        ORMDependencyBuilder::buildDependencies($dependencies);
+
+        $dependencies->addClassDependency(Annotation::class, 'annotations');
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command)
@@ -306,6 +313,7 @@ class MakeResetPassword extends AbstractMaker
         $closing[] = '  2) Review forms in <fg=yellow>"src/Form"</> to customize validation and labels.';
         $closing[] = '  3) Review and customize the templates in <fg=yellow>`templates/reset_password`</>.';
         $closing[] = '  4) Make sure your <fg=yellow>MAILER_DSN</> env var has the correct settings.';
+        $closing[] = '  5) Create a "forgot your password link" to the <fg=yellow>app_forgot_password_request</> route on your login form.';
 
         $io->text($closing);
         $io->newLine();

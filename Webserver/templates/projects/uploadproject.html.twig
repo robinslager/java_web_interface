@@ -24,14 +24,18 @@
 {% block javascripts %}
 <script>
     var input = document.getElementById('files');
-    var output = document.getElementById('output');
 
     input.onchange = function(e) {
         var files = e.target.files; // FileList
-        for (var i = 0, f; f = files[i]; ++i){
-            console.debug(files[i].webkitRelativePath);
-        }
         uploadFiles(files)
+    }
+
+    function wait(ms){
+        var start = new Date().getTime();
+        var end = start;
+        while(end < start + ms) {
+            end = new Date().getTime();
+        }
     }
 function uploadFiles(files) {
 
@@ -61,8 +65,21 @@ function uploadFiles(files) {
 
 // Open and send HHTP requests to upload.php
     xhr.open('POST', "{{ path('saveupload') }}", true);
+
+    xhr.timeout = 15000;
+
+    xhr.onload = function () {
+        window.location.href = "{{ path('projects') }}"
+    };
+
+    xhr.ontimeout = function (e) {
+        xhr.abort();
+        window.location.href = "{{ path('projects') }}"
+    };
+
     xhr.send(data);
-    window.location.href = "{{ path( 'projects' ) }}";
+
+
 }
 </script>
 {% endblock %}
