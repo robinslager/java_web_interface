@@ -40,21 +40,26 @@ class DockerActions
     }
 
     private function newProject(){
-        $container = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" '.
-        '--data @../docker_Postrequest/createcontainer.json');
-        $containerID = json_decode($container)->Id;
-        $result = exec("curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/" . $containerID . "/start");
+        // checks if project already exists with project name and user
+
+        if($this->em->getRepository(Project::class)->findOneBy(array('ProjectName' => $_POST['ProjectName'], 'User' => $this->user)) === null) {
+            $container = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" ' .
+                '--data @../docker_Postrequest/createcontainer.json');
+            $containerID = json_decode($container)->Id;
+
+            $result = exec("curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/" . $containerID . "/start");
+            $project = new Project();
+
+            $project->setUser($this->user);
+            $project->setProjectName($_POST['ProjectName']);
+            $project->setDockerID($containerID);
+            $this->em->persist($project);
+            $this->em->flush();
 
 
-        $project = new Project();
-        $project->setUserID($this->user->getID());
-        $project->setProjectName($_POST['ProjectName']);
-        $project->setDockerID($containerID);
-        $this->em->persist($project);
-        $this->em->flush();
-
-        // this needs after flushing project otherwise the entity project for this project does not exists
-        $this->copyProject($containerID);
+            // this needs after flushing project otherwise the entity project for this project does not exists
+            $this->copyProject($containerID);
+        }
     }
 
     // this function is for copieng and eventually updating projects

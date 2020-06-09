@@ -21,8 +21,9 @@ class ProjectsController extends AbstractController
     public function index(EntityManagerInterface $em)
     {
         $response = "";
+
         $projects = $em->getRepository(Project::class)->findby([
-                "UserID" => $this->getUser()->getId()]
+                "User" => $this->getUser()]
         );
         if (!$projects) {
             $response = "You do not own any projects yet";

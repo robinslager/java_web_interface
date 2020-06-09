@@ -5,6 +5,6 @@
 /public/bundles/
 /var/
 /vendor/
-/uploads/raw/*
-/uploads/tar/*
+/uploads/raw/
+/uploads/tar/
 ###< symfony/framework-bundle ###

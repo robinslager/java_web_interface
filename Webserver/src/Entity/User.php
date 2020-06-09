@@ -34,10 +34,6 @@ class User implements UserInterface, \Serializable
      */
     private $email;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="User")
-     */
-    private $projects;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="User", orphanRemoval=true)
@@ -46,7 +42,6 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->projects = new ArrayCollection();
         $this->Projects = new ArrayCollection();
     }
 
@@ -91,71 +86,71 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getRoles()
-                              	{
-                              		return [
-                              			'ROLE_USER'
-                              		];
-                              	}
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return [
+            'ROLE_USER'
+        ];
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getSalt()
-                              	{
-                              		// TODO: Implement getSalt() method.
-                              	}
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function eraseCredentials()
-                              	{
-                              		// TODO: Implement eraseCredentials() method.
-                              	}
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function serialize()
-                              	{
-                              		return serialize( [
-                              			$this->id,
-                              			$this->username,
-                              			$this->email,
-                              			$this->password
-                              			]
-                              		);
-                              	}
+    /**
+     * @inheritDoc
+     */
+    public function serialize()
+    {
+        return serialize([
+                $this->id,
+                $this->username,
+                $this->email,
+                $this->password
+            ]
+        );
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function unserialize($serialized)
-                              	{
-                              		list(
-                              			$this->id,
-                              			$this->username,
-                              			$this->email,
-                              			$this->password
-                              			) = unserialize($serialized, ['allowed_classes' => false]);
-                              	}
+    /**
+     * @inheritDoc
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password
+            ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
 
     /**
      * @return Collection|Project[]
      */
     public function getProjects(): Collection
     {
-        return $this->projects;
+        return $this->Projects;
     }
 
     public function addProject(Project $project): self
     {
-        if (!$this->projects->contains($project)) {
-            $this->projects[] = $project;
+        if (!$this->Projects->contains($project)) {
+            $this->Projects[] = $project;
             $project->setUser($this);
         }
 
@@ -164,8 +159,8 @@ class User implements UserInterface, \Serializable
 
     public function removeProject(Project $project): self
     {
-        if ($this->projects->contains($project)) {
-            $this->projects->removeElement($project);
+        if ($this->Projects->contains($project)) {
+            $this->Projects->removeElement($project);
             // set the owning side to null (unless already changed)
             if ($project->getUser() === $this) {
                 $project->setUser(null);
