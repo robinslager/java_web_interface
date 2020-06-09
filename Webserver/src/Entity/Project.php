@@ -16,10 +16,6 @@ class Project
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $UserID;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -29,6 +25,14 @@ class Project
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $DockerID;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $User;
+
+
 
 
     public function getId(): ?int
@@ -78,4 +82,17 @@ class Project
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
 }
