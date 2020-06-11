@@ -11,6 +11,7 @@
 <div class="example-wrapper">
 
     {% for dockercontainer in dockercontainers %}
+{#      Returns the absolute URL (with scheme and host) for the given route. If schemeRelative is enabled, it'll create a scheme-relative URL.#}
         <a href="{{ path('dockerContainer', {containerID: dockercontainer.Id }, relative = false) }}">
         {{ dockercontainer.Image}}
         {{ dockercontainer.Id }} <br>

@@ -36,6 +36,7 @@ class DockerActions
             case 'stop-project':
 
                 break;
+
         }
     }
 
@@ -70,18 +71,19 @@ class DockerActions
     $execdownload = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/' . $dockerID . '/exec -H "Content-Type: application/json" --data @../docker_Postrequest/untar.json');
     $execID = json_decode($execdownload)->Id;
     $this->startexec($execID);
-    $execdownload = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/' . $dockerID . '/exec -H "Content-Type: application/json" --data @../docker_Postrequest/gradle_run.json');
-    $execID = json_decode($execdownload)->Id;
-    $this->startdetachedexec($execID);
+    $this->startProject(null, null, $dockerID);
     }
 
-    public function startProject($projectname, $containerID = null){
+    public function startProject($projectname = null, $user = null,  $containerID = null){
         if($containerID === null){
-            $this->em->getRepository(Project::class)->findOneBy([
-                'ProjectName' => $projectname
+            $project  = $this->em->getRepository(Project::class)->findOneBy([
+                'ProjectName' => $projectname,
+                'User' => $user
             ]);
         }
-
+        $execdownload = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/' . $containerID . '/exec -H "Content-Type: application/json" --data @../docker_Postrequest/gradle_run.json');
+        $execID = json_decode($execdownload)->Id;
+        $this->startdetachedexec($execID);
     }
 
     private function startexec($execID){
