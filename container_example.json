@@ -1,0 +1,70 @@
+{
+  "Id": "231e56609acf5157640c8cbd8dfd528b6ba5798cb32b8bdd419de7a2dbf93ca5",
+  "Names": [
+    "/heuristic_tharp"
+  ],
+  "Image": "gradlejavacontainer:1.1",
+  "ImageID": "sha256:b1922519b23846d55a46878e79d0e60bf338ff4c487b60cb7227ee278dd30313"
+  "Command": "/bin/bash -c 'tail -f /dev/null'",
+  "Created": 1591860555,
+  "Ports": [],
+  "Labels": {
+    "com.docker.compose.service": "server"
+  },
+  "State": "running",
+  "Status": "Up 5 minutes",
+  "HostConfig": {
+    "NetworkMode": "default"
+  },
+  "NetworkSettings": {
+    "Networks": {
+      "java_web_interface_server": {
+        "IPAMConfig": null,
+        "Links": null,
+        "Aliases": null,
+        "NetworkID": "63e5b522dc47190c6295951d205bcc12cde3e2dfc0341ba9d539e7f9e1c6fbd2",
+        "EndpointID": "51be02ea79e029cb6aacb71ab1d407e0eb1c85d904644f8e0de4f986650c6f7e",
+        "Gateway": "172.16.2.1",
+        "IPAddress": "172.16.2.4",
+        "IPPrefixLen": 24,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "02:42:ac:10:02:04",
+        "DriverOpts": null
+      }
+    }
+  },
+  "Mounts": [
+    {
+      "Type": "volume",
+      "Name": "c9a1cd5d5bffd83f4d6aa676db7de43cd0df4f4702b32112032607ba09357da2",
+      "Source": "",
+      "Destination": "/home/gradle/.gradle",
+      "Driver": "local",
+      "Mode": "",
+      "RW": true,
+      "Propagation": ""
+    },
+    {
+      "Type": "volume",
+      "Name": "b3238322479b19b53ba64e299db7478ea2bc1f8a99d838eb3f79765df211a6cb",
+      "Source": "",
+      "Destination": "JavaApplication/Scripts",
+      "Driver": "local",
+      "Mode": "",
+      "RW": true,
+      "Propagation": ""
+    }
+    {
+      "Type": "volume",
+      "Name": "a0967778e968674361730b12b43979a674ef83f577983b6d9c4e74f534b4999a",
+      "Source": "",
+      "Destination": "java_web_interface_server",
+      "Driver": "local",
+      "Mode": "",
+      "RW": true,
+      "Propagation": ""
+    }
+  ]
+}

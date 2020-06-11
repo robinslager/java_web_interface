@@ -64,4 +64,32 @@ class ProjectsController extends AbstractController
     return $this->redirect('/projects');
     }
 
+    /**
+     * @Route("/project/{project_name}", name="Project")
+     * @param $project_name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function Project(EntityManagerInterface $em, $project_name)
+    {
+
+        $project = $em->getRepository(Project::class)->findOneBy(
+            array(
+                'ProjectName' => $project_name,
+                'User' => $this->getUser()
+            )
+        );
+        $dockerID = $project->getDockerID();
+        $command = exec("curl --unix-socket /var/run/docker.sock http:/v1.30/containers/json");
+        $docker = json_decode($command);
+        $container = null;
+        foreach ($docker as $dockercontainer){
+            if ($dockercontainer->Id === $dockerID) {
+                $container = $dockercontainer;
+            }
+        }
+        return $this->render('projects/Project.html.twig', [
+            'Container' => $container,
+        ]);
+    }
+
 }

@@ -11,7 +11,8 @@
 <div class="example-wrapper">
     {% if Projects %}
         {% for project in Projects %}
-            <a href="">
+            {#      Returns the absolute URL (with scheme and host) for the given route. If schemeRelative is enabled, it'll create a scheme-relative URL.#}
+            <a href="{{ path("Project", {project_name: project.projectname}) }}">
                 {{ project.projectname }}
             </a>
         {% endfor %}

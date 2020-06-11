@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DockerdashboardController!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <div id="container status">
+            {{ Container.Image }} <br>
+            {{ Container.State }}:
+            {{ Container.Status }}
+            <br><br>
+        </div>
+        <div id="docker buttons">
+            <a></a>
+            <a></a>
+            <a></a>
+        </div>
+    </div>
+{% endblock %}
