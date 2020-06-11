@@ -3,8 +3,6 @@
 
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
-/vendor/
 /uploads/raw/
 /uploads/tar/
 ###< symfony/framework-bundle ###
