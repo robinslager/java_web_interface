@@ -6,7 +6,7 @@
   "Tty": false,
   "Privileged": true,
   "Cmd": [
-    "curl", "-o" , "project.tar", "192.168.166.193:81/download/git-bot-java"
+    "curl", "-o" , "project.tar", "192.168.178.87:81/download/git-bot-java"
   ],
   "Env": [
   ],
