@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /Webserver/uploads/raw/
 /Webserver/uploads/tar/
 /Webserver/var/
+=======
+﻿Webserver/var
+>>>>>>> master

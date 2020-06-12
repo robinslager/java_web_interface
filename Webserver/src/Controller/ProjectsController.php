@@ -89,7 +89,55 @@ class ProjectsController extends AbstractController
         }
         return $this->render('projects/Project.html.twig', [
             'Container' => $container,
+            'Project' => $project
         ]);
+    }
+
+    /**
+     * @Route("/project/{project_name}/{action}", name="Project_actions")
+     * @param $project_name
+     * @param $action
+     *
+     */
+    public function projectActions(EntityManagerInterface $em, $project_name, $action){
+        $project = $em->getRepository(Project::class)->findOneBy(
+            array(
+                'ProjectName' => $project_name,
+                'User' => $this->getUser()
+            )
+        );
+
+        switch ($action) {
+            case 'start-project':
+                if ($project->getDockerStatus() !== "running"){
+                    new DockerActions(
+                        $action,
+                        $em,
+                        $this->getUser(),
+                        array(
+                            'DockerID' => $project->getDockerID(),
+                        )
+                    );
+                }
+                break;
+            case 'stop-project':
+                if ($project->getDockerStatus() !== "Down"){
+                    new DockerActions(
+                        $action,
+                        $em,
+                        $this->getUser(),
+                        array(
+                            'DockerID' => $project->getDockerID(),
+                        )
+                    );
+                }
+                break;
+        }
+
+
+
+
+
     }
 
 }

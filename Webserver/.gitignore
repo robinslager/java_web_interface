@@ -1,1 +1,13 @@
 
+<<<<<<< HEAD
+=======
+###> symfony/framework-bundle ###
+
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/uploads/raw/
+/uploads/tar/
+/var/cache/
+/var/log/
+###< symfony/framework-bundle ###
+>>>>>>> master

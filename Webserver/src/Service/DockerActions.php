@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DockerActions
 {
-
     private $params;
     private $em;
     private $user;
@@ -31,32 +30,32 @@ class DockerActions
                 $this->newProject();
                 break;
             case 'start-project':
-
+                $dockerID = $this->params['DockerID'];
+                $this->startProject(null, null, $dockerID);
                 break;
             case 'stop-project':
-
+                $dockerID = $this->params['DockerID'];
+                $projectname = $this->params['Project_Name'];
+                $this->stopProject(null, null, $dockerID);
                 break;
-
         }
     }
 
     private function newProject(){
         // checks if project already exists with project name and user
-
         if($this->em->getRepository(Project::class)->findOneBy(array('ProjectName' => $_POST['ProjectName'], 'User' => $this->user)) === null) {
             $container = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" ' .
                 '--data @../docker_Postrequest/createcontainer.json');
             $containerID = json_decode($container)->Id;
-
             $result = exec("curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/" . $containerID . "/start");
-            $project = new Project();
 
+            $project = new Project();
             $project->setUser($this->user);
             $project->setProjectName($_POST['ProjectName']);
             $project->setDockerID($containerID);
+            $project->setDockerStatus("Running");
             $this->em->persist($project);
             $this->em->flush();
-
 
             // this needs after flushing project otherwise the entity project for this project does not exists
             $this->copyProject($containerID);
@@ -74,6 +73,13 @@ class DockerActions
     $this->startProject(null, null, $dockerID);
     }
 
+    private function startexec($execID){
+        exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/exec/' . $execID .'/start -H "Content-Type: application/json" --data @../docker_Postrequest/start.json');
+    }
+    private function startdetachedexec($execID){
+        exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/exec/' . $execID .'/start -H "Content-Type: application/json" --data @../docker_Postrequest/start_detatched.json');
+    }
+
     public function startProject($projectname = null, $user = null,  $containerID = null){
         if($containerID === null){
             $project  = $this->em->getRepository(Project::class)->findOneBy([
@@ -86,10 +92,15 @@ class DockerActions
         $this->startdetachedexec($execID);
     }
 
-    private function startexec($execID){
-        exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/exec/' . $execID .'/start -H "Content-Type: application/json" --data @../docker_Postrequest/start.json');
-    }
-    private function startdetachedexec($execID){
-        exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/exec/' . $execID .'/start -H "Content-Type: application/json" --data @../docker_Postrequest/start_detatched.json');
+    public function stopProject($projectname = null, $user = null,  $containerID = null){
+        if($containerID === null){
+            $project  = $this->em->getRepository(Project::class)->findOneBy([
+                'ProjectName' => $projectname,
+                'User' => $user
+            ]);
+        }
+        $execdownload = exec('curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/' . $containerID . '/exec -H "Content-Type: application/json" --data @../docker_Postrequest/gradle_stop.json');
+        $execID = json_decode($execdownload)->Id;
+        $this->startdetachedexec($execID);
     }
 }
