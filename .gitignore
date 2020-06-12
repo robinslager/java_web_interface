@@ -1,5 +1,5 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/uploads/raw/
-/uploads/tar/
+/Webserver/uploads/raw/
+/Webserver/uploads/tar/
 /Webserver/var/
