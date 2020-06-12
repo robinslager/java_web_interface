@@ -32,8 +32,10 @@ class Project
      */
     private $User;
 
-
-
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $DockerStatus;
 
     public function getId(): ?int
     {
@@ -91,6 +93,18 @@ class Project
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getDockerStatus(): ?string
+    {
+        return $this->DockerStatus;
+    }
+
+    public function setDockerStatus(string $DockerStatus): self
+    {
+        $this->DockerStatus = $DockerStatus;
 
         return $this;
     }
