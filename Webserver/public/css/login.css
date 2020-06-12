@@ -8,6 +8,9 @@ html {
 body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 a {
@@ -36,8 +39,6 @@ h2 {
     margin: 40px 8px 10px 8px;
     color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 

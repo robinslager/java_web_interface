@@ -1,27 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Dashboard{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="./css/dashboard.css">
+{% endblock %}
+
+{% block username %}
+{{ User.username }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .leftbox { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    nav { width: auto; height: auto}
-    a{height: 20px; width: 100px}
-</style>
-
-<div class="wrapper">
-    <h1>Hello {{ User.username }}! ✅</h1>
-
-    <div class="leftbox">
-        <nav>
-
-
-            <a href="{{ path('docker') }}">docker</a> <br>
-            <a href="{{ path('projects') }}">projects</a>
-        </nav>
-    </div>
-    <a href="{{ path('logout') }}">Logout</a>
-</div>
+{#
+{#        //content#}
+{#        <main>#}
+{#            <h1>Homepage</h1>#}
+{#            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut#}
+{#                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <br>#}
+{#                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in#}
+{#                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat<br>#}
+{#                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>#}
+{#        </main>#}
+{#    </div>#}
 {% endblock %}
