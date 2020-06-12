@@ -18,6 +18,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
 
+# https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get update \
+ && apt-get install -y \
+ nodejs
+RUN npm install -g yarn
+
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;

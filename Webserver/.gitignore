@@ -5,4 +5,5 @@
 /public/bundles/
 /uploads/raw/
 /uploads/tar/
+
 ###< symfony/framework-bundle ###
