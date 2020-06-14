@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DockerdashboardController!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <div id="container status">
+            {{ Container.Image }} <br>
+            {{ Container.State }}:
+            {{ Container.Status }}
+            <br><br>
+        </div>
+
+        <div id="docker buttons">
+            <button id="start" onclick="sendaction('start-project')">start Project</button>
+            <button id="stop" onclick="sendaction('stop-project')">stop Project</button>
+            <button id="" value=""></button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+function sendaction(value) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/project/{{ Project.ProjectName }}/" + value, true);
+    xhttp.send();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DockerdashboardController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    {% for dockercontainer in dockercontainers %}
+{#      Returns the absolute URL (with scheme and host) for the given route. If schemeRelative is enabled, it'll create a scheme-relative URL.#}
+        <a href="{{ path('dockerContainer', {containerID: dockercontainer.Id }, relative = false) }}">
+        {{ dockercontainer.Image}}
+        {{ dockercontainer.Id }} <br>
+        {{ dockercontainer.State }}:
+        {{ dockercontainer.Status}}
+            <br><br>
+        </a>
+    {% endfor %}
+
+</div>
+{% endblock %}
