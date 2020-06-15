@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}
+    {% block basestylesheets %}
         <link rel="stylesheet" href="./css/index.css">
-
-        <!-- bootstrap css include -->
+        {#        <!-- bootstrap css include -->#}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% endblock %}
+    {% block stylesheets %}
     {% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
-{% block navigatie %}
-    <div id="viewport">
+<div id="viewport">
+    {% block navigatie %}
+
         <div id="sidebar">
             <header>
                 <h1>Admin</h1>
@@ -31,10 +32,15 @@
                 <li>
                     <a href="{{ path('logout') }}">Logout</a>
                 </li>
+                <li>
+                    <a href="{{ path('test_casus') }}">test casus</a>
+                </li>
             </ul>
         </div>
-    </div>
-{% endblock %}
+
+    {% endblock %}
+    {% block body %}{% endblock %}
+</div>
 {% block javascripts %}{% endblock %}
 
 </body>
