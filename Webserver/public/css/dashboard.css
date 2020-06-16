@@ -3,37 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
-/* Sidebar Styles */
-#sidebar {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 250px;
-    height: 100%;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #56baed; /* of blue, voor een donkere tint*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    -webkit-box-shadow: 9px -6px 9px -5px rgba(0,0,0,0.45);
-    -moz-box-shadow: 9px -6px 9px -5px rgba(0,0,0,0.45);
-    box-shadow: 9px -6px 9px -5px rgba(0,0,0,0.45);
-}
 
-#sidebar h1 {
-    color: white;
-    margin-left: 10%;
-}
-
-#sidebar ul {
-    list-style: none;
-}
-#sidebar ul li {
-    list-style: none;
-    color: white;
-}
 
 main {
     margin-left: 300px;
