@@ -31,7 +31,8 @@ class ProjectsController extends AbstractController
         return $this->render('projects/index.html.twig', [
             'controller_name' => 'ProjectsController',
             'Responce' => $response,
-            'Projects' => $projects
+            'Projects' => $projects,
+            'User' => $this->getUser(),
         ]);
     }
 
@@ -41,7 +42,9 @@ class ProjectsController extends AbstractController
      */
     public function uploadProject()
     {
-        return $this->render('projects/uploadproject.html.twig', []);
+        return $this->render('projects/uploadproject.html.twig', [
+            'User' => $this->getUser(),
+        ]);
     }
 
     /**
@@ -89,7 +92,8 @@ class ProjectsController extends AbstractController
         }
         return $this->render('projects/Project.html.twig', [
             'Container' => $container,
-            'Project' => $project
+            'Project' => $project,
+            'User' => $this->getUser(),
         ]);
     }
 

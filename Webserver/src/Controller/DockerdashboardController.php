@@ -18,6 +18,7 @@ class DockerdashboardController extends AbstractController
     	$docker = json_decode($command);
         return $this->render('dockerdashboard/dockerdashboard.html.twig', [
 			'dockercontainers' => $docker,
+            'User' => $this->getUser(),
         ]);
     }
 
@@ -38,6 +39,7 @@ class DockerdashboardController extends AbstractController
 		}
 		return $this->render('dockerdashboard/dockerContainer.html.twig', [
 			'Container' => $container,
+            'User' => $this->getUser(),
 		]);
 	}
 

@@ -19,6 +19,7 @@ class TestCasusController extends AbstractController
         // todo make page with all tests
         return $this->render('test_casus/index.html.twig', [
             'controller_name' => 'TestCasusController',
+            'User' => $this->getUser(),
         ]);
     }
 
@@ -29,7 +30,7 @@ class TestCasusController extends AbstractController
     {
         // todo make page with all tests
         return $this->render('test_casus/jsworker.html.twig', [
-
+            'User' => $this->getUser(),
         ]);
     }
 
