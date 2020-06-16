@@ -120,7 +120,6 @@ class ProjectsController extends AbstractController
      * @Route("/project/{project_name}/{action}", name="Project_actions")
      * @param $project_name
      * @param $action
-     *
      */
     public function projectActions(EntityManagerInterface $em, $project_name, $action)
     {
@@ -170,8 +169,20 @@ class ProjectsController extends AbstractController
                 }
                 break;
         }
+        $response = "";
 
-
+        $projects = $em->getRepository(Project::class)->findby([
+                "User" => $this->getUser()]
+        );
+        if (!$projects) {
+            $response = "You do not own any projects yet";
+        }
+        return $this->render('projects/index.html.twig', [
+            'controller_name' => 'ProjectsController',
+            'Responce' => $response,
+            'Projects' => $projects,
+            'User' => $this->getUser(),
+            'Error' => "",
+        ]);
     }
-
 }
