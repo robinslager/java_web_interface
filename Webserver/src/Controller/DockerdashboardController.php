@@ -19,6 +19,7 @@ class DockerdashboardController extends AbstractController
         return $this->render('dockerdashboard/dockerdashboard.html.twig', [
 			'dockercontainers' => $docker,
             'User' => $this->getUser(),
+            'Error' => ""
         ]);
     }
 
@@ -37,10 +38,19 @@ class DockerdashboardController extends AbstractController
 					$container = $dockercontainer;
 				}
 		}
-		return $this->render('dockerdashboard/dockerContainer.html.twig', [
-			'Container' => $container,
-            'User' => $this->getUser(),
-		]);
+		if($container !== null) {
+            return $this->render('dockerdashboard/dockerContainer.html.twig', [
+                'Container' => $container,
+                'User' => $this->getUser(),
+
+            ]);
+        } else {
+            return $this->render('dockerdashboard/dockerdashboard.html.twig', [
+                'dockercontainers' => $docker,
+                'User' => $this->getUser(),
+                'Error' => "Container Does not Exists"
+            ]);
+        }
 	}
 
 }
