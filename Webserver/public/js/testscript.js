@@ -27,8 +27,6 @@ function makeRequest (method, url, data) {
 }
 
 //GET example
-;
-
 function timedCount() {
     var results;
     makeRequest('GET', "/test-casus/js-worker/getdata").then(function(data){
