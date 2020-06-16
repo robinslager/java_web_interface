@@ -33,6 +33,7 @@ class ProjectsController extends AbstractController
             'Responce' => $response,
             'Projects' => $projects,
             'User' => $this->getUser(),
+            'Error' => "",
         ]);
     }
 
@@ -53,18 +54,18 @@ class ProjectsController extends AbstractController
      */
     public function saveupload(EntityManagerInterface $em)
     {
-        if(new ProjectUploader($_FILES)){
+        if (new ProjectUploader($_FILES)) {
             // create tar file
             $pd = new \PharData('/project/Webserver/uploads/tar/' . $_POST['ProjectName'] . '.tar');
             $dir = realpath("/project/Webserver/uploads/raw/" . $_POST['ProjectName']);
             $pd->buildFromDirectory($dir);
-            unset( $pd );
+            unset($pd);
 
             // create project and container
-            new DockerActions("new-project", $em ,$this->getUser() ,$_POST);
+            new DockerActions("new-project", $em, $this->getUser(), $_POST);
 
         }
-    return $this->redirect('/projects');
+        return $this->redirect('/projects');
     }
 
     /**
@@ -81,20 +82,38 @@ class ProjectsController extends AbstractController
                 'User' => $this->getUser()
             )
         );
-        $dockerID = $project->getDockerID();
-        $command = exec("curl --unix-socket /var/run/docker.sock http:/v1.30/containers/json");
-        $docker = json_decode($command);
-        $container = null;
-        foreach ($docker as $dockercontainer){
-            if ($dockercontainer->Id === $dockerID) {
-                $container = $dockercontainer;
+        if ($project) {
+            $dockerID = $project->getDockerID();
+            $command = exec("curl --unix-socket /var/run/docker.sock http:/v1.30/containers/json");
+            $docker = json_decode($command);
+            $container = null;
+            foreach ($docker as $dockercontainer) {
+                if ($dockercontainer->Id === $dockerID) {
+                    $container = $dockercontainer;
+                }
             }
+
+            return $this->render('projects/Project.html.twig', [
+                'Container' => $container,
+                'Project' => $project,
+                'User' => $this->getUser(),
+            ]);
+        } else {
+            $projects = $em->getRepository(Project::class)->findby([
+                    "User" => $this->getUser()]
+            );
+            if (!$projects) {
+                $response = "You do not own any projects yet";
+            }
+            return $this->render('projects/index.html.twig', [
+                'controller_name' => 'ProjectsController',
+                'Responce' => $response,
+                'Projects' => $projects,
+                'User' => $this->getUser(),
+                'Error' => "Project does not exist",
+            ]);
         }
-        return $this->render('projects/Project.html.twig', [
-            'Container' => $container,
-            'Project' => $project,
-            'User' => $this->getUser(),
-        ]);
+
     }
 
     /**
@@ -103,7 +122,8 @@ class ProjectsController extends AbstractController
      * @param $action
      *
      */
-    public function projectActions(EntityManagerInterface $em, $project_name, $action){
+    public function projectActions(EntityManagerInterface $em, $project_name, $action)
+    {
         $project = $em->getRepository(Project::class)->findOneBy(
             array(
                 'ProjectName' => $project_name,
@@ -113,7 +133,7 @@ class ProjectsController extends AbstractController
 
         switch ($action) {
             case 'start-project':
-                if ($project->getDockerStatus() !== "running"){
+                if ($project->getDockerStatus() !== "running") {
                     new DockerActions(
                         $action,
                         $em,
@@ -125,7 +145,7 @@ class ProjectsController extends AbstractController
                 }
                 break;
             case 'stop-project':
-                if ($project->getDockerStatus() !== "Down"){
+                if ($project->getDockerStatus() !== "Down") {
                     new DockerActions(
                         $action,
                         $em,
@@ -137,9 +157,6 @@ class ProjectsController extends AbstractController
                 }
                 break;
         }
-
-
-
 
 
     }

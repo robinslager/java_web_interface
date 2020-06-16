@@ -9,6 +9,9 @@
 </style>
 
 <div class="example-wrapper">
+    {% if Error is not empty %}
+     <h3>{{ Error }}</h3>
+    {% endif %}
     {% if Projects %}
         {% for project in Projects %}
             {#      Returns the absolute URL (with scheme and host) for the given route. If schemeRelative is enabled, it'll create a scheme-relative URL.#}
