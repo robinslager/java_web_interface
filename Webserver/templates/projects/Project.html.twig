@@ -3,7 +3,6 @@
 {% block title %}Hello DockerdashboardController!{% endblock %}
 
 {% block body %}
-
     <main>
         <div id="container status">
             {{ Container.Image }} <br>
@@ -15,24 +14,39 @@
         <div id="docker buttons">
             <button id="start" onclick="sendaction('start-project')">start Project</button>
             <button id="stop" onclick="sendaction('stop-project')">stop Project</button>
-            <button id="" value=""></button>
+            <button id="pause" value="pause" onclick="sendaction('pause-project')"> pause Project</button>
         </div>
     </main>
 {% endblock %}
 
 {% block javascripts %}
-<script>
-function sendaction(value) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/project/{{ Project.ProjectName }}/" + value, true);
-    xhttp.send();
-    if(value === 'stop-project'){
-        document.getElementById("stop").disabled = true;
-        document.getElementById("start").disabled = false;
-    } else if(value === 'start-project'){
-        document.getElementById("stop").disabled = false;
-        document.getElementById("start").disabled = true;
-    }
-}
-</script>
+    <script>
+        function sendaction(value) {
+            if (value === 'stop-project') {
+                document.getElementById("stop").disabled = true;
+                document.getElementById("start").disabled = false;
+                document.getElementById("pause").disabled = true;
+            } else if (value === 'start-project') {
+                document.getElementById("stop").disabled = false;
+                document.getElementById("start").disabled = true;
+                document.getElementById("pause").disabled = false;
+            } else if (value === 'pause-project') {
+                pause = document.getElementById("pause");
+                if (pause.value === "pause") {
+                    document.getElementById("start").disabled = true;
+                    this.value = "pause-project";
+                    pause.innerHTML = "unpause Project";
+                    pause.value = "unpause";
+                } else if (pause.value === "unpause") {
+                    document.getElementById("start").disabled = false;
+                    this.value = "unpause-project";
+                    pause.innerHTML = "pause Project";
+                    pause.value = "pause";
+                }
+            }
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/project/{{ Project.ProjectName }}/" + value, true);
+            xhttp.send();
+        }
+    </script>
 {% endblock %}

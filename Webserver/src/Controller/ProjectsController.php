@@ -124,15 +124,16 @@ class ProjectsController extends AbstractController
      */
     public function projectActions(EntityManagerInterface $em, $project_name, $action)
     {
+        // todo error handling
         $project = $em->getRepository(Project::class)->findOneBy(
             array(
                 'ProjectName' => $project_name,
                 'User' => $this->getUser()
             )
         );
-
         switch ($action) {
             case 'start-project':
+            case 'unpause-project':
                 if ($project->getDockerStatus() !== "running") {
                     new DockerActions(
                         $action,
@@ -146,6 +147,18 @@ class ProjectsController extends AbstractController
                 break;
             case 'stop-project':
                 if ($project->getDockerStatus() !== "Down") {
+                    new DockerActions(
+                        $action,
+                        $em,
+                        $this->getUser(),
+                        array(
+                            'DockerID' => $project->getDockerID(),
+                        )
+                    );
+                }
+                break;
+            case 'pause-project':
+                if ($project->getDockerStatus() !== "paused") {
                     new DockerActions(
                         $action,
                         $em,

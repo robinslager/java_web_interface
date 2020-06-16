@@ -38,6 +38,14 @@ class DockerActions
                 $projectname = $this->params['Project_Name'];
                 $this->stopProject(null, null, $dockerID);
                 break;
+            case 'pause-project':
+                $dockerID = $this->params['DockerID'];
+                exec("curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/" . $dockerID . "/pause");
+                break;
+            case 'unpause-project':
+                $dockerID = $this->params['DockerID'];
+                exec("curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/" . $dockerID . "/unpause");
+                break;
         }
     }
 
