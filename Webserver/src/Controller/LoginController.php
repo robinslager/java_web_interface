@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
@@ -37,5 +40,46 @@ class LoginController extends AbstractController
      */
     public function logout(){
 
+    }
+
+    /**
+     * @Route("/signup", name="signup")
+     */
+    public function signup(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder){
+        if($_POST['Username'] !== null || $_POST['password'] !== null || $_POST['email'] !== null){
+            $username = $_POST['Username'];
+            $password = $_POST['password'];
+            $email = $_POST['email'];
+
+            $responce = "";
+
+           if($em->getRepository(User::class)->findOneBy(
+               array(
+                   'username' => $username,
+               )
+           ) !== null) {
+               if($em->getRepository(User::class)->findOneBy(
+                   array(
+                       'email' => $email,
+                   )
+               ) !== null) {
+                   // user does not exists yet
+                   $user = new User();
+                   $user->setUsername($username);
+                   $user->setPassword($encoder->encodePassword($user, $password));
+                   $user->setEmail($email);
+                   $em->persist($user);
+                   $em->flush();
+               } else {
+                   $responce = "email already exists";
+               }
+           } else {
+               $responce = "username already exists";
+           }
+        }
+        return $this->render('login/signup.html.twig', [
+            'Request' => $request,
+            'Responce' => $responce
+        ]);
     }
 }

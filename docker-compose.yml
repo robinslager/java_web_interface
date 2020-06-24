@@ -38,7 +38,7 @@ services:
       server:
     restart: always
     ports:
-      - 8180:80
+      - 8800:80
     links:
       - mysql
 networks:

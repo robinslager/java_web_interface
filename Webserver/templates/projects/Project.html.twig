@@ -2,6 +2,10 @@
 
 {% block title %}Hello DockerdashboardController!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/popup.css">
+{% endblock %}
+
 {% block body %}
     <main>
         <div id="container status">
@@ -16,11 +20,45 @@
             <button id="stop" onclick="sendaction('stop-project')">stop Project</button>
             <button id="pause" value="pause" onclick="sendaction('pause-project')"> pause Project</button>
         </div>
+
+
+        <button id="popupBtn" style="background-color: red">Delete Project</button>
+
+        <div id="popupID" class="popupclass" >
+
+            <!-- popup content -->
+            <div class="modal-content">
+                <t>for deleting your project enter your password</t>
+                <label>Password:</label>
+                <input type="password" name="password" id="Password">
+                <button id="submit" onclick="deleteProject()">submit</button>
+                <button class="close">&times; cancel</button>
+            </div>
+        </div>
     </main>
 {% endblock %}
 
 {% block javascripts %}
     <script>
+        // Get the modal
+        var modal = document.getElementById("popupID");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("popupBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
         function sendaction(value) {
             if (value === 'stop-project') {
                 document.getElementById("stop").disabled = true;
@@ -47,6 +85,29 @@
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", "/project/{{ Project.ProjectName }}/" + this.value, true);
             xhttp.send();
+        }
+        function deleteProject() {
+            let xhr = new XMLHttpRequest();
+            let data = new FormData();
+
+            let password = document.getElementById("Password").value;
+
+            if(password === ""){
+                document.getElementById("Password").placeholder = "no password has been entered"
+            } else {
+                xhr.open('POST', "{{ path("deleteProject") }}", true);
+                // post data
+                data.append("password", password);
+                data.append("project", "{{ Project.ProjectName }}");
+
+                // on succes
+                xhr.onload = function () {
+                    window.location.href = "{{ path("projects") }}"
+                };
+
+                // send request with data
+                xhr.send(data);
+            }
         }
     </script>
 {% endblock %}
