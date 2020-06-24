@@ -278,6 +278,7 @@ input[type=password]:placeholder {
     height: 2px;
     background-color: #56baed;
     content: "";
+
     transition: width 0.2s;
 }
 
@@ -287,6 +288,9 @@ input[type=password]:placeholder {
 
 .underlineHover:hover:after{
     width: 100%;
+}
+.underlineHover{
+    margin-right: 25px;
 }
 
 

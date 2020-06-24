@@ -21,7 +21,10 @@
             <!-- Icon -->
             <div class="fadeIn first">
                 {#            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />#}
-                <h1>Signup</h1>
+                <h1>Signup</h1><br>
+                {% if Responce %}
+                    <span class="error" style="font-weight: bold;">{{ Responce }}</span>
+                {% endif %}
             </div>
 
             <!-- Signup Form -->
@@ -29,10 +32,10 @@
                 <label for="username_txt">username:</label>
                 <input type="text" name="Username" id="username_txt">
                 <label for="password_txt">password:</label>
-                <input type="text" name="password" id="password_txt"><br>
+                <input type="password" name="password" id="password_txt"><br>
                 <label for="email_txt">email:</label><br>
                 <input type="text" name="email" id="email_txt">
-                <input type="submit" class="fadeIn fourth" value="Log In">
+                <input type="submit" class="fadeIn fourth" value="Sign in">
             </form>
 
 
