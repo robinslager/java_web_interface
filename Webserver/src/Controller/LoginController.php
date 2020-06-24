@@ -72,6 +72,8 @@ class LoginController extends AbstractController
                     $user->setEmail($email);
                     $em->persist($user);
                     $em->flush();
+
+                    return $this->redirect('/');
                 } else {
                     $responce = "email already exists";
                 }
