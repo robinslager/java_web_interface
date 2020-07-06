@@ -243,7 +243,4 @@ class ProjectsController extends AbstractController
         ]);
         // todo return error no project
     }
-
-
-
 }

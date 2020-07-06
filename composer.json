@@ -6,6 +6,7 @@
         "symfony/profiler-pack": "^1.0"
     },
     "require": {
-        "symfony/filesystem": "^5.1"
+        "symfony/filesystem": "^5.1",
+        "symfony/google-mailer": "^5.1"
     }
 }
