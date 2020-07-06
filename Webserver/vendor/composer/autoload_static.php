@@ -14,6 +14,7 @@ class ComposerStaticInit1713e4ced9977506539db41e6b3da1b8
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        '5b7467fa68f8509e3e5313246d7025a0' => __DIR__ . '/..' . '/d3vy/rrmdir/rrmdir.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -114,10 +115,6 @@ class ComposerStaticInit1713e4ced9977506539db41e6b3da1b8
             'Doctrine\\Bundle\\MigrationsBundle\\' => 33,
             'Doctrine\\Bundle\\FixturesBundle\\' => 31,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
         ),
     );
 
@@ -432,10 +429,6 @@ class ComposerStaticInit1713e4ced9977506539db41e6b3da1b8
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
-        ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

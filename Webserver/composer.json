@@ -1,5 +1,5 @@
 {
     "require": {
-        "symfony/filesystem": "4.4.9"
+        "d3vy/rrmdir": "^1.0"
     }
 }
