@@ -1,4 +1,4 @@
-FROM php:7.2.7-apache
+FROM php:7.4.2-apache
 #install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
  && apt-get update &&apt-get install  -y git libzip-dev unzip \
@@ -14,7 +14,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
      build-essential \
      libsqlite3-dev \
      sqlite3 \
-     sqlite
+     sqlite \
+     rsync
 
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
 
@@ -37,7 +38,7 @@ RUN a2enmod rewrite
 
 RUN mkdir /var/www/project
 
-COPY ./scripts/* /var/www/
+COPY /scripts/* /var/www/
 
 RUN usermod -a -G root www-data
 #todo restart apache in script

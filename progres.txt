@@ -12,3 +12,6 @@ curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/exec/f0e4e0f03838599
 
 curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/create -H "Content-Type: application/json" --data @/www/project/Webserver/docker_Postrequest/createcontainer.json
 curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/f0e4e0f038385992925a88b53ed5f798dd640b5f09513f331a6888d7f9032ae4/start
+
+
+curl --unix-socket /var/run/docker.sock -X POST http:/v1.30/containers/c5a644b3cc090ea868ee53e77c1358d6bfa8c4f96fa59b20c2d3ad887834cee7/exec -H "Content-Type: application/json" --data @../docker_Postrequest/gradle_stop.json

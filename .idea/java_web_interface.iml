@@ -92,6 +92,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Webserver/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/Webserver/vendor/zendframework/zend-code" />
       <excludeFolder url="file://$MODULE_DIR$/Webserver/vendor/zendframework/zend-eventmanager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
